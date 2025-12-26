@@ -1,0 +1,269 @@
+/* --- RESET & BASICS --- */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* No scrollbars */
+  background-color: #000;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.App {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* --- COUNTDOWN --- */
+.countdown-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 100;
+}
+
+.current-time {
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+}
+
+.current-time .time-label {
+  display: block;
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.current-time .time-value {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ff6b9d;
+  text-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
+}
+
+.title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #f73487;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px rgba(247, 52, 135, 0.5);
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.time-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #aaa;
+}
+
+.time-box span {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+}
+
+/* --- CANVAS --- */
+.main-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  transition: opacity 2s ease-out;
+}
+
+.main-canvas.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- GALLERY --- */
+.gallery-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  pointer-events: none; /* Let clicks pass through if needed */
+}
+
+/* Photo Card Styles */
+.photo-card {
+  position: absolute;
+  background: white;
+  padding: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  border-radius: 4px;
+  /* Default Start: Center, small, invisible */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth easing */
+  width: 450px; /* Base width - bigger photos */
+  max-width: 85vw;
+}
+
+.photo-card img {
+  width: 100%;
+  display: block;
+  border-radius: 2px;
+}
+
+/* State: Waiting */
+.photo-card.waiting {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+/* State: Growing (Center Stage) */
+.photo-card.growing {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.8); /* Even bigger burst */
+  z-index: 100;
+  box-shadow: 0 0 60px rgba(247, 52, 135, 0.5);
+}
+
+/* State: Placed (In Collection) */
+.photo-card.placed {
+  opacity: 1;
+  /* Transform is set via inline styles in JS for specific positions */
+  transition: top 2s ease-in-out, left 2s ease-in-out, transform 2s ease-in-out;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+/* Caption during growth */
+.caption {
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.5rem;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  animation: fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Final Collection Reveal Animation */
+.gallery-container.final-scale-up {
+  /* Scale the whole container of polaroids up slightly then fade */
+  animation: collectionFloat 6s ease-in-out forwards;
+}
+
+@keyframes collectionFloat {
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.1); filter: brightness(1.2) drop-shadow(0 0 20px #f73487); }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+
+/* --- FINALE TEXT --- */
+.finale-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: black; /* Ensures clean slate */
+  opacity: 0;
+  z-index: 200;
+  pointer-events: none;
+  transition: opacity 3s ease;
+}
+
+.finale-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.love-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 5rem; /* Large! */
+  color: #fff;
+  text-shadow: 0 0 20px #f73487, 0 0 40px #f73487;
+  animation: pulseHeart 2s infinite ease-in-out;
+}
+
+/* Typing cursor */
+.love-text .cursor {
+  display: inline-block;
+  animation: blink 0.7s infinite;
+  margin-left: 5px;
+  font-weight: 100;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.signature {
+  position: absolute;
+  bottom: 20%;
+  right: 10%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  color: #aaa;
+  font-style: italic;
+  opacity: 0;
+  animation: fadeInSig 4s ease 2s forwards;
+}
+
+@keyframes pulseHeart {
+  0% { transform: scale(1); text-shadow: 0 0 20px #f73487; }
+  50% { transform: scale(1.1); text-shadow: 0 0 40px #f73487, 0 0 80px #ff0055; }
+  100% { transform: scale(1); text-shadow: 0 0 20px #f73487; }
+}
+
+@keyframes fadeInSig {
+  to { opacity: 1; }
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+  .title { font-size: 2rem; }
+  .time-box span { font-size: 2rem; }
+  
+  .photo-card { width: 320px; }
+  .photo-card.growing { transform: translate(-50%, -50%) scale(1.5); }
+  
+  .love-text { font-size: 3rem; }
+  .signature { bottom: 15%; right: 5%; }
+}
