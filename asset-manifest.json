@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/happy-new-year/static/css/main.26b8974c.css",
-    "main.js": "/happy-new-year/static/js/main.e4fbb550.js",
+    "main.js": "/happy-new-year/static/js/main.27e60742.js",
     "index.html": "/happy-new-year/index.html",
     "main.26b8974c.css.map": "/happy-new-year/static/css/main.26b8974c.css.map",
-    "main.e4fbb550.js.map": "/happy-new-year/static/js/main.e4fbb550.js.map"
+    "main.27e60742.js.map": "/happy-new-year/static/js/main.27e60742.js.map"
   },
   "entrypoints": [
     "static/css/main.26b8974c.css",
-    "static/js/main.e4fbb550.js"
+    "static/js/main.27e60742.js"
   ]
 }
