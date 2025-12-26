@@ -10,10 +10,10 @@ const TARGET_DATE = new Date(2025, 11, 26, 23, 55, 0).getTime();
 // 2. Sound URLs (using free sound effects)
 // You can replace these with your own audio files in the public folder
 const SOUNDS = {
-  countdown: '/sounds/countdown-tick.mp3',      // Tick sound for last 10 seconds
-  heartbeat: '/sounds/heartbeat.mp3',           // Heartbeat sound
-  firework: '/sounds/firework.mp3',             // Firework explosion
-  romantic: '/sounds/romantic-song.mp3'         // Romantic background music
+  countdown: `${process.env.PUBLIC_URL || ''}/sounds/countdown-tick.mp3`,      // Tick sound for last 10 seconds
+  heartbeat: `${process.env.PUBLIC_URL || ''}/sounds/heartbeat.mp3`,           // Heartbeat sound
+  firework: `${process.env.PUBLIC_URL || ''}/sounds/firework.mp3`,             // Firework explosion
+  romantic: `${process.env.PUBLIC_URL || ''}/sounds/romantic-song.mp3`         // Romantic background music
 };
 
 // 3. Photos & Messages
