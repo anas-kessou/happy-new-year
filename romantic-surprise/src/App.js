@@ -5,7 +5,7 @@ import './App.css';
 // 1. Target Date (Year, MonthIndex 0-11, Day, Hour 0-23, Min, Sec)
 // Month: 0=Jan, 1=Feb, ..., 11=Dec
 // Hour: Use 24-hour format (e.g., 21 = 9 PM)
-const TARGET_DATE = new Date(2025, 11, 26, 23, 29, 0).getTime();
+const TARGET_DATE = new Date(2025, 11, 26, 23, 55, 0).getTime();
 
 // 2. Sound URLs (using free sound effects)
 // You can replace these with your own audio files in the public folder
